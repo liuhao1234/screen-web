@@ -1,0 +1,41 @@
+import React,{Component} from 'react'
+import classnames from 'classnames'
+import {connect} from 'react-redux'
+import PanelTitle from '../common/PanelTitle'
+class LayerPanel extends Component{
+    initLayerList = ()=>{
+        // console.log(this.props.layerList.toJS())
+        return this.props.layerList.toJS().map((item,index)=>{
+            return  <li title={item.name} key={index}>
+                        <i className='iconfont icon-map'></i>
+                        <span>{item.name}</span>
+                    </li>
+        })
+    }
+    render(){
+        // console.log(this.props)
+        return(
+            <div className={classnames("layer-panel",this.props.status)}>
+                <PanelTitle
+                    icon="icon-layers"
+                    name="图层"
+                />
+                <ul className="layer-list">
+                    {this.initLayerList()}
+                </ul>
+            </div>
+        )
+    }
+}
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        layerList:state.getIn(["layerState","layerList"])
+    }
+}
+
+const mapDispatchToProps = dispatch=>{
+    return {
+        
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(LayerPanel);

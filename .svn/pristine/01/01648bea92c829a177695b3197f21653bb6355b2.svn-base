@@ -1,0 +1,62 @@
+import React,{ Component } from 'react'
+import { Row,Col,Form,Input,Select } from 'antd'
+import MonacoEditor from 'react-monaco-editor';
+import { monacoEditorConfig } from '../../../config/monacoEditor'
+const { Option } = Select;
+class SettingDataForm extends Component{
+    onChange = (newValue,event) => {
+        console.log("event",event)
+        console.log("onChange", newValue); // eslint-disable-line no-console
+    };
+    editorDidMount = (editor,monaco) => {
+        console.log(editor)
+        console.log(monaco)
+    };
+    render(){
+        return (
+            <div className="setting-form-wrap">
+                <Form>
+                    <Row gutter={10}>
+                    <Col span={6}>
+                            <label htmlFor="">数据类型</label>
+                        </Col>
+                        <Col span={18}>
+                            <Form.Item>
+                                <Select
+                                    placeholder="请选择数据类型"
+                                    defaultValue="static"
+                                >
+                                    <Option className="vs-dark" value="api">API</Option>
+                                    <Option className="vs-dark" value="static">静态数据</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col span={6}>
+                            <label htmlFor="">URL</label>
+                        </Col>
+                        <Col span={18}>
+                            <Form.Item>
+                                <Input placeholder="请输入url" />
+                            </Form.Item>
+                        </Col>
+                        <Col span={6}>
+                            <label htmlFor="">数据展示</label>
+                        </Col>
+                        <Col span={18}>
+                            <MonacoEditor
+                                width="207"
+                                height="200"
+                                value="{aaa:111}"
+                                options={monacoEditorConfig}
+                                onChange={this.onChange}
+                                editorDidMount={this.editorDidMount}
+                                theme="vs-dark"
+                            />
+                        </Col>
+                    </Row>
+                </Form>
+            </div>
+        )
+    }
+}
+export default SettingDataForm

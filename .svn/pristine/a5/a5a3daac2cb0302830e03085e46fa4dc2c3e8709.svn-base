@@ -1,0 +1,90 @@
+import React,{ Component } from 'react'
+import { Link } from 'react-router-dom'
+import Util from '../../util';
+import {connect} from "react-redux";
+
+class Sidebar extends Component{
+
+    constructor(props){
+        super(props);
+        this.getNavList();
+    }
+
+    state = {
+        loading : false,
+        navList :[],
+        navIndex : ""
+    };
+
+    getNavList = ()=>{
+        Util.ajax({
+            'url':'/user/queryUserMenu'
+        }).then((res)=>{
+            console.log(res)
+            if(res.code === 200){
+                const currentRouter = window.location.pathname;
+                let navIndex = 0;
+                let navList = res.data.data.map((item,index)=>{
+                    if(item.menuUrl === currentRouter){
+                        navIndex = index;
+                    }
+                    return {
+                        id:item.menuId,
+                        name:item.menuName,
+                        className:item.className,
+                        href:item.menuUrl,
+                    }
+                });
+                this.setState({
+                    navList,
+                    navIndex
+                })
+            }
+        })
+    }
+
+    initNavList = ()=>{
+        if(!this.state.navList) return false;
+        return this.state.navList.map((item,index)=>
+            <li key={item.id}>
+                <Link to= {item.href}>
+                    <i className={'iconfont icon-publish '+ item.className+(this.state.navIndex===index?" active":"")} ></i>
+                    <span index={index}>{item.name}</span>
+                </Link>
+            </li>)
+
+    }
+
+    render(){
+        return (
+            <div className="psidebar">
+                <div className="psidebarinner">
+                    <div className="sidebar_list">
+                        <ul>
+                            {/*<li className="active">
+                                <Link to="/home">
+                                    <i className="iconfont icon-publish"></i>
+                                    <span>历史发布</span>
+                                </Link>
+                            </li>*/}
+                            {this.initNavList()}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        userInfo: state.toJS().loginState.userInfo
+    }
+}
+
+const mapDispatchToProps = dispatch=>{
+    return {
+
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Sidebar)

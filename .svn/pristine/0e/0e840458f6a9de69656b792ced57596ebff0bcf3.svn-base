@@ -1,0 +1,8 @@
+export const layer_list = "layer_list";
+
+export function showLayer(data){
+    return {
+        type:layer_list,
+        data
+    }
+}

@@ -1,0 +1,29 @@
+import React,{Component} from 'react'
+import classnames from 'classnames'
+import {connect} from 'react-redux'
+import PanelTitle from '../common/PanelTitle'
+
+class ModulePanel extends Component{
+    render(){
+        return(
+            <div className={classnames("modules-panel",this.props.status)}>
+                <PanelTitle
+                    icon="icon-box"
+                    name="组件集"
+                />
+            </div>
+        )
+    }
+}
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        
+    }
+}
+
+const mapDispatchToProps = dispatch=>{
+    return {
+        
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(ModulePanel);

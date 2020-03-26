@@ -1,0 +1,21 @@
+import React,{ Component } from 'react'
+import { Route } from 'react-router-dom'
+import HistoryVisual from './HistoryVisual'
+import Menulist from "./Menulist";
+
+class Container extends Component{
+    componentDidMount(){
+        
+    }
+    render(){
+        return (
+            <div className="page-container">
+                <Route exact path="/home" component={HistoryVisual}/>
+                <Route path="/home/menulist" component={Menulist} />
+                <Route path="/home/userlist" component={Menulist} />
+                <Route path="/home/rolelist" component={Menulist} />
+            </div>
+        );
+    }
+}
+export default Container

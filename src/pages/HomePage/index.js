@@ -1,0 +1,17 @@
+import React,{ Component,Fragment } from "react"
+import Header from '../../components/Home/Header'
+import Sidebar from '../../components/Home/Sidebar'
+import PageContainer from '../../components/Home/Container'
+import '../../static/style/home.styl'
+class HomePage extends Component{
+    render(){
+        return (
+            <Fragment>
+                <Header />
+                <Sidebar/>
+                <PageContainer/>
+            </Fragment>
+        )
+    }
+}
+export default HomePage

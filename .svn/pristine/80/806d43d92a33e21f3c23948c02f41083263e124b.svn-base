@@ -1,0 +1,25 @@
+import React, {Component, Fragment} from 'react';
+import {Form, Input, Button} from 'antd';
+
+class SearchForm extends Component{
+	render(){
+		return (
+			<Fragment>
+				<Form
+					onFinish={this.props.onSubmit}
+				>
+					<Form.Item
+						label="菜单名称"
+						name="menuName"
+						rules={[]}
+					>
+						<Input placeholder="请输入菜单名称" />
+					</Form.Item>
+					<Button type="primary" htmlType="submit">查询</Button>
+				</Form>
+			</Fragment>
+		)
+	}
+}
+
+export default SearchForm;

@@ -1,0 +1,77 @@
+import React,{Component,Fragment} from 'react'
+import Datatable from './table.js'
+import { 
+	Row,
+	Col,
+	Form,
+	Input,
+	Button,
+	Card 
+} from 'antd';
+import { PlusOutlined } from '@ant-design/icons'
+
+class Menulist extends Component{
+	state = {
+		searchValue:{
+			username:""
+		}
+	}
+	onMenuSearch = (value)=>{
+		this.setState({
+			searchValue:value
+		})
+	}
+	render() {
+		return (
+			<Fragment>
+				<Row
+					gutter={[10,10]}
+				>
+					<Col span={24}>
+						<Card
+							title="查询条件" 
+							bordered={false}
+							size="small"
+						>
+							<Form
+								onFinish={this.onMenuSearch}
+								layout="inline"
+							>
+								<Form.Item
+									label="菜单名称"
+									name="menuName"
+								>
+									<Input 
+										placeholder="请输入关键字"
+										autoComplete="off"
+									/>
+								</Form.Item>
+								<Form.Item>
+									<Button type="primary" htmlType="submit">查询</Button>
+								</Form.Item>
+							</Form>
+						</Card>
+					</Col>
+					<Col span={24}>
+						<Card
+							title="查询结果" 
+							bordered={false}
+							size="small"
+							extra={
+								<Button 
+									type="primary"
+									icon={<PlusOutlined />}
+								>新增</Button>
+							}
+						>
+							<Datatable
+								searchValue={this.state.formValue}
+							/>
+						</Card>
+					</Col>
+				</Row>
+			</Fragment>
+		)
+	}
+}
+export default Menulist;

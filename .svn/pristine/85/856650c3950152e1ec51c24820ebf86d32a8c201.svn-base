@@ -1,0 +1,28 @@
+import React,{Component} from 'react'
+import classnames from 'classnames'
+import {connect} from 'react-redux'
+import PanelTitle from '../common/PanelTitle'
+class SettingPanel extends Component{
+    render(){
+        return(
+            <div className={classnames("setting-panel",this.props.status)}>
+                <PanelTitle
+                    icon="icon-setting"
+                    name="设置"
+                />
+            </div>
+        )
+    }
+}
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        
+    }
+}
+
+const mapDispatchToProps = dispatch=>{
+    return {
+        
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(SettingPanel);

@@ -1,0 +1,131 @@
+import React,{Component} from 'react'
+import classnames from 'classnames'
+import {connect} from 'react-redux'
+import { Slider, InputNumber } from 'antd'
+
+class CanvasPanel extends Component{
+    state = {
+        editorSize:100
+    }
+
+    static defaultProps = {
+        min:10,
+        max:400
+    }
+
+    editorSizeChange = (value)=>{
+        this.setState({
+            editorSize:value
+        })
+    }
+    onWheel = (event)=>{
+        // console.log(event)
+        // console.log(event.nativeEvent)
+        if(event.ctrlKey){
+            // event.deltaY 正值向上滚动，负值为向下滚动
+            // event.clientX 鼠标距离浏览器可视区左侧距离
+            // event.screenX 鼠标距离显示器左侧的距离
+            // event.pageX 鼠标距离document左侧的距离
+            var editorSize = this.state.editorSize+event.deltaY
+            if(editorSize<this.props.min){
+                editorSize = this.props.min
+            }else if(editorSize>this.props.max){
+                editorSize = this.props.max
+            }
+            this.setState({ editorSize })
+        }
+    }
+    getStatusData = ()=>{
+        // innerPadding默认50px
+        // const editorWrapWidth = this.editorWrap.offsetWidth
+        // const editorWrapHeight = this.editorWrap.offsetHeight
+        let editorScale
+        let editorInnerWidth
+        let editorInnerHeight
+        let editorInnerPaddingVertical
+        let editorInnerPaddingHorizontal
+        const { editorWidth,editorHeight } = this.props
+        editorScale = (this.state.editorSize/100).toFixed(1)
+        editorInnerWidth = Math.round(editorWidth*editorScale)+100
+        editorInnerHeight = Math.round(editorHeight*editorScale)+100
+        // if(editorInnerHeight+100<editorWrapHeight){
+        //     editorInnerPaddingVertical=Math.floor((editorInnerHeight-editorInnerHeight)/2)
+        // }
+        // console.log(editorInnerWidth)
+        // console.log(editorWidth)
+        // console.log(editorScale)
+        return {
+            editorScale,
+            editorInnerWidth,
+            editorInnerHeight
+        }
+    }
+    render(){
+        const { editorWidth,editorHeight } = this.props
+        const { editorScale,editorInnerWidth,editorInnerHeight } = this.getStatusData()
+        return(
+            <div className={classnames("canvas-panel",this.props.status)}>
+                <div 
+                    className="canvas-editor-wrap"
+                    ref={dom=>{this.editorWrap=dom}}
+                >
+                    <div 
+                        className="canvas-editor-inner"
+                        style={{
+                            width:editorInnerWidth,
+                            height:editorInnerHeight
+                        }}
+                    >
+                        <div 
+                            className="canvas-editor"
+                            onWheel={this.onWheel}
+                            style={{
+                                width:editorWidth,
+                                height:editorHeight,
+                                transform:`scale(${editorScale})`,
+                                transformOrigin:"left top 0px"
+                            }}
+                        >
+                            <div className="test-block" 
+                                style={{width:200,height:200,background:"#f00"}}
+                            ></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="canvas-status">
+                    <div className="status-bar">
+                        <InputNumber
+                            min={this.props.min}
+                            max={this.props.max}
+                            size="small"
+                            style={{width:70,float:"right",marginTop:3,marginRight:5}}
+                            value={this.state.editorSize}
+                            formatter={value=>`${value}%`}
+                            onChange={this.editorSizeChange}
+                        />
+                        <Slider
+                            min={this.props.min}
+                            max={this.props.max}
+                            tooltipVisible={false}
+                            style={{width:100,float:"right",marginRight:10}}
+                            onChange={this.editorSizeChange}
+                            value={this.state.editorSize}
+                        />
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        editorHeight:state.getIn(["editorState","height"]),
+        editorWidth:state.getIn(["editorState","width"])
+    }
+}
+const mapDispatchToProps = dispatch=>{
+    return {
+        
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(CanvasPanel);

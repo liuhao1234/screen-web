@@ -1,0 +1,28 @@
+import React,{Component} from 'react'
+import classnames from 'classnames'
+import {connect} from 'react-redux'
+import PanelTitle from '../common/PanelTitle'
+class VisuaListPanel extends Component{
+    render(){
+        return(
+            <div className={classnames("visualist-panel",this.props.status)}>
+                <PanelTitle
+                    icon="icon-history-clock"
+                    name="历史大屏"
+                />
+            </div>
+        )
+    }
+}
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        
+    }
+}
+
+const mapDispatchToProps = dispatch=>{
+    return {
+        
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(VisuaListPanel);

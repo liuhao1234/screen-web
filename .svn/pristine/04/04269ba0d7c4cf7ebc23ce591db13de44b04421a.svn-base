@@ -1,0 +1,16 @@
+import React,{ Component } from 'react'
+import { Route } from 'react-router-dom'
+import HistoryVisual from './HistoryVisual'
+class Container extends Component{
+    componentDidMount(){
+        
+    }
+    render(){
+        return (
+            <div className="page-container">
+                <Route exact path="/home" component={HistoryVisual} />
+            </div>
+        )
+    }
+}
+export default Container

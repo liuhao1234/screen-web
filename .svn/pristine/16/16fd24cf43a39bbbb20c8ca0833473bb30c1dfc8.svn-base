@@ -1,0 +1,48 @@
+import React,{Component} from 'react'
+import classnames from 'classnames'
+import {connect} from 'react-redux'
+import { Row, Col, Button } from 'antd'
+import PanelTitle from '../common/PanelTitle'
+class VisuaListPanel extends Component{
+    render(){
+        return(
+            <div className={classnames("visualist-panel",this.props.status)}>
+                <PanelTitle
+                    icon="icon-history-clock"
+                    name="历史大屏"
+                />
+                <Row>
+                    <Col span={24}>
+                        <div className="add-visual"><i className="iconfont icon-add"></i></div>
+                    </Col>
+                    <Col span={24}>
+                        <div className="visual-item">
+                            <div className="visual-poster">
+                                <div className="visual-operate">
+                                    <Button type="primary">编辑</Button>
+                                    <Button type="primary">预览</Button>
+                                </div>
+                            </div>
+                            <div className="visual-info">
+                                <h2>瓦房店大屏</h2>
+                                <span>2020-02-29 15:30</span>
+                            </div>
+                        </div>
+                    </Col>
+                </Row>
+            </div>
+        )
+    }
+}
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        
+    }
+}
+
+const mapDispatchToProps = dispatch=>{
+    return {
+        
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(VisuaListPanel);

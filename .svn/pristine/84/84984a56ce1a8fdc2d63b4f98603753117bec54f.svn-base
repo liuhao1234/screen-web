@@ -1,0 +1,39 @@
+const data = {
+    id:111,
+    name:"大屏数据",
+    screen:{//大屏背景数据
+        width:1920,
+        height:1080,
+        color:"rgba(0,0,0,1)",
+        backgroundImg:{
+            url:'bg.png',
+            size:["80%","auto"],
+            position:["300","40%"]
+        },
+        poster:"poster.png"
+    },
+    modules:[{
+        name:"基础柱图",//组件名称
+        type:"line",
+        style:{
+            width:400,
+            height:500,
+            x:100, //组件的位置
+            y:100,
+            title:{
+                show:true,
+                name:"地市收入", //chart名
+                fontSize:20,
+                color:"rgba(0,0,0,1)",
+                margin:20
+            },
+            lengend:{//
+                position:"center",//left,center,right
+                margin:10,
+            }
+        },
+        data:{
+
+        }
+    }]
+}

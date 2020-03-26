@@ -1,0 +1,94 @@
+import React,{Component,Fragment} from 'react'
+import { connect } from 'react-redux'
+import '../../static/style/editor.styl';
+import Header from '../../components/Editor/Header'
+import SettingPanel from '../../components/Editor/SettingPanel'
+import LayerPanel from '../../components/Editor/LayerPanel'
+import ModulesPanel from '../../components/Editor/ModulesPanel'
+import CanvasPanel from '../../components/Editor/CanvasPanel'
+class ScreenEditor extends Component{
+    constructor(props){
+        super(props)
+        this.layoutStatus = {
+            layerPanel:"status01",
+            modulesPanel:"status02",
+            canvasPanel:"status05",
+            settingPanel:"status01",
+            visualistPanel:"status02"
+        }
+    }
+    // 判断各个面板的显示状态
+    getStatusByProps = ()=>{
+        //判断图层状态
+        if(this.props.layerPanelShow){
+            this.layoutStatus.layerPanel="status01"
+        }else{
+            this.layoutStatus.layerPanel="status02"
+        }
+
+        // 判断组件面板状态
+        if(this.props.modulesPanelShow&&this.props.layerPanelShow){
+            this.layoutStatus.modulesPanel="status02"
+        }else if(this.props.modulesPanelShow&&!this.props.layerPanelShow){
+            this.layoutStatus.modulesPanel="status01"
+        }else{
+            this.layoutStatus.modulesPanel="status03"
+        }
+
+        // 判断画布面板的状态
+        if(!this.props.layerPanelShow&&!this.props.modulesPanelShow&&!this.props.settingPanelShow){
+            this.layoutStatus.canvasPanel="status01"
+        }else if(!this.props.layerPanelShow&&!this.props.modulesPanelShow&&this.props.settingPanelShow){
+            this.layoutStatus.canvasPanel="status02"
+        }else if(this.props.layerPanelShow&&!this.props.modulesPanelShow&&!this.props.settingPanelShow){
+            this.layoutStatus.canvasPanel="status03"
+        }else if(this.props.layerPanelShow&&!this.props.modulesPanelShow&&this.props.settingPanelShow){
+            this.layoutStatus.canvasPanel="status04"
+        }else if(!this.props.layerPanelShow&&this.props.modulesPanelShow&&!this.props.settingPanelShow){
+            this.layoutStatus.canvasPanel="status03"
+        }else if(!this.props.layerPanelShow&&this.props.modulesPanelShow&&this.props.settingPanelShow){
+            this.layoutStatus.canvasPanel="status04"
+        }else if(this.props.layerPanelShow&&this.props.modulesPanelShow&&!this.props.settingPanelShow){
+            this.layoutStatus.canvasPanel="status05"
+        }else{
+            this.layoutStatus.canvasPanel="status06"
+        }
+
+        //判断设置面板状态
+        if(this.props.settingPanelShow){
+            this.layoutStatus.settingPanel="status01"
+        }else{
+            this.layoutStatus.settingPanel="status02"
+        }
+    }
+
+    render(){
+        this.getStatusByProps()
+        return(
+            <Fragment>
+                <div className="screen-editor-page">
+                    <Header />
+                    <SettingPanel status={this.layoutStatus.settingPanel} />
+                    <LayerPanel status={this.layoutStatus.layerPanel} />
+                    <ModulesPanel status={this.layoutStatus.modulesPanel} />
+                    <CanvasPanel status={this.layoutStatus.canvasPanel} />
+                </div>
+            </Fragment>
+        )
+    }
+}
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        layerPanelShow:state.getIn(["headerState","layerPanelShow"]),
+        modulesPanelShow:state.getIn(["headerState","modulesPanelShow"]),
+        visualistPanelShow:state.getIn(["headerState","visualistPanelShow"]),
+        settingPanelShow:state.getIn(["headerState","settingPanelShow"])
+    }
+}
+
+const mapDispatchToProps = dispatch=>{
+    return {
+        
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(ScreenEditor);

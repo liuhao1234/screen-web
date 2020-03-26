@@ -1,0 +1,23 @@
+export const monacoEditorConfig = {
+    selectOnLineNumbers: false,
+    roundedSelection: false,
+    readOnly: false,
+    cursorStyle: "line",
+    automaticLayout: false,
+    autoIndent:"keep",
+    fontSize:12,//代码字体大小
+    lineNumbers:"off",//代码行标
+    quickSuggestions:false,//快捷提示功能
+    showFoldingControls:"always",//代码折叠图标显示
+    scrollBeyondLastLine:false,//编辑区下方留空
+    scrollBeyondLastColumn:0,//编辑区下方留空行数
+    contextmenu:false,//代码鼠标右键菜单
+    // codeLens:false,
+    minimap:{//代码小图操作
+        enabled:false //不显示代码小地图
+    },
+    scrollbar:{//滚动条设置
+        horizontalScrollbarSize:5,//水平滚动条尺寸
+        verticalScrollbarSize:5//垂直滚动条尺寸
+    }
+}

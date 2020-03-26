@@ -1,0 +1,32 @@
+import React,{ Component } from 'react'
+import { connect } from 'react-redux'
+class Header extends Component{
+    render(){
+        const {realName} = this.props.userInfo;
+        return (
+            <div className="phead">
+                <div className="head_con">
+                    <div className="left">
+                        <b>北京资采DPWEB</b>
+                    </div>
+                    <div className="right">
+                        <span className="user"><small>您好！{realName}</small></span>
+                        <span><small>修改密码</small></span>
+                        <span className="exit"><small>退出</small></span>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        userInfo: state.toJS().loginState.userInfo
+    }
+}
+const mapDispatchToProps = dispatch=>{
+    return {
+
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Header)

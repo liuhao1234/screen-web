@@ -1,0 +1,70 @@
+import React,{Component} from 'react'
+import classnames from 'classnames'
+import {connect} from 'react-redux'
+import { Slider, InputNumber } from 'antd'
+
+class CanvasPanel extends Component{
+    state = {
+        editorSize:50,
+        min:10,
+        max:400
+    }
+    editorSizeChange = (value)=>{
+        this.setState({
+            editorSize:value
+        })
+    }
+    onWheel = (event)=>{
+        if(event.ctrlKey){
+            //event.deltaY 正值向上滚动，负值为向下滚动
+            
+        }
+    }
+    render(){
+        return(
+            <div className={classnames("canvas-panel",this.props.status)}>
+                <div className="canvas-editor-wrap">
+                    <div className="canvas-editor-inner">
+                        <div 
+                            className="canvas-editor"
+                            onWheel={this.onWheel}
+                        >
+
+                        </div>
+                    </div>
+                </div>
+                <div className="canvas-status">
+                    <div className="status-bar">
+                        <InputNumber
+                            min={this.state.min}
+                            max={this.state.max}
+                            size="small"
+                            style={{width:70,float:"right",marginTop:3,marginRight:5}}
+                            value={this.state.editorSize}
+                            onChange={this.editorSizeChange}
+                        />
+                        <Slider
+                            min={this.state.min}
+                            max={this.state.max}
+                            tooltipVisible={false}
+                            style={{width:100,float:"right"}}
+                            onChange={this.editorSizeChange}
+                            value={this.state.editorSize}
+                        />
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        
+    }
+}
+const mapDispatchToProps = dispatch=>{
+    return {
+        
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(CanvasPanel);

@@ -1,0 +1,14 @@
+export const change_width = "change_width";
+export const change_height = "change_height";
+export function changeWidth(data){
+    return {
+        type:change_width,
+        data
+    }
+}
+export function changeHeight(data){
+    return {
+        type:change_height,
+        data
+    }
+}

@@ -1,0 +1,32 @@
+export const show_layer = "show_layer";
+export const show_modules = "show_modules";
+export const show_visualist = "show_visualist";
+export const show_setting = "show_setting";
+
+export function showLayer(data){
+    return {
+        type:show_layer,
+        data
+    }
+}
+
+export function showModules(data){
+    return {
+        type:show_modules,
+        data
+    }
+}
+
+export function showVisualist(data){
+    return {
+        type:show_visualist,
+        data
+    }
+}
+
+export function showSetting(data){
+    return {
+        type:show_setting,
+        data
+    }
+}

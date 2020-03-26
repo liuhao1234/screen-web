@@ -1,0 +1,189 @@
+import React,{ Component,Fragment } from 'react';
+import Axios from '../../axios/index';
+import { Table, Modal, message } from 'antd';
+import _ from 'lodash';
+import {Tooltip} from "antd/lib/index";
+import { EditOutlined ,DeleteOutlined  } from '@ant-design/icons';
+const { confirm } = Modal;
+
+class Datatable extends Component{
+	constructor(props){
+		super(props);
+        this.height = document.querySelector('body').offsetHeight*0.5;
+		this.columns = [{ //列数据
+			title: '菜单名称',
+			align:'center',
+			dataIndex: 'menuName',
+            width:'20%',
+		}, {
+			title: '菜单URL',
+			align:'center',
+			dataIndex: 'menuUrl',
+            width:'20%',
+		},{
+            title: '菜单顺序',
+            align:'center',
+            dataIndex: 'sort',
+            width:'10%',
+        }, {
+			title: '操作',
+			align:'center',
+			dataIndex: 'action',
+            width:'10%',
+			render: (text, record) => (
+					<Fragment>
+                		<Tooltip title="编辑">
+							<EditOutlined  className="table-btn" type='edit' onClick={this.handleEdit.bind(this,record)} style={{color:'green'}} />
+						</Tooltip>
+						<Tooltip title="删除">
+							<DeleteOutlined className="table-btn" type='delete' onClick={this.handleDelete.bind(this,record)} style={{color:'red'}} />
+						</Tooltip>
+					</Fragment>
+			)
+		}]
+	}
+
+	state = {
+	    refresh : "",
+		dataSource : [],
+		loading : false,
+		pagination : {},
+		selectformValue:{}
+	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+	    if (!_.isEqual(this.props, nextProps) || !_.isEqual(this.state, nextState)) {
+	        return true
+	     } else {
+	        return false
+	     }
+	}
+	
+	handleEdit = (record)=>{
+		this.props.handleEdit(record);
+	}
+
+	handleDelete = (record) => {
+	    const _this=this;
+		confirm({
+		    title: '确定删除该条信息吗?',
+		    content: `该信息删除后将不能恢复!`,
+		    onOk() {
+		      	Axios.ajax({
+		    		url:'/menu/del/'+record.key,
+		    		data:{}
+		    	}).then((res)=>{
+		    		if(res.code === 200){
+						message.success(res.message);
+						_this.componentDidMount();
+		    		}else{
+		    			message.error(res.message);
+		    		}
+		    	})
+		    }
+		});
+	}
+
+	handleTableChange = (pagination) => {
+        let cur = pagination.current;
+        this.setState({pagination:{current:cur}});
+	    this.getTableData({
+	        pageSize: pagination.pageSize,
+	        startIndex: pagination.current
+	    });
+    }
+
+    showTotal = (total, range) => {
+        return "共"+total+"条记录，当前显示"+ range[0]+"到"+ range[1] +"条";
+    }
+
+    getTableData(params){
+    	this.setState({ loading: true });
+    	/*console.log({
+    			...params,
+    			...this.state.selectformValue
+    		})*/
+    	Axios.ajax({
+    		url:'/menu/query',
+    		data:{
+    			...params,
+    			...this.state.selectformValue
+    		}
+    	}).then((res)=>{
+    		//console.log(res)
+    		let  pagination;
+            if(res.code === 200){
+                pagination = {
+                    ...this.state.pagination,
+                    total : res.data.recordsTotal,
+                    showTotal : this.showTotal
+                };
+                this.setState({
+                    loading: false,
+                    dataSource:res.data.data.map((item)=>{
+                        return {
+                            key:item.menuId,
+                            menuName:item.menuName,
+                            menuUrl:item.menuUrl,
+                            sort:item.sort,
+                            createTime:item.createTime
+                        }
+                    }),
+                    pagination
+                })
+			}else{
+                pagination = {
+                    ...this.state.pagination,
+                    total : 0
+                };
+                this.setState({
+                    loading: false,
+                    pagination
+                })
+                message.error(res.message);
+			}
+    	})
+    }
+
+    componentWillReceiveProps(nextProps){
+        if (_.isEqual(this.props, nextProps)) {
+            return;
+         }
+    	console.log(nextProps)
+    	this.setState({
+    		selectformValue:nextProps.selectformValue
+    	},()=>{
+            this.setState({pagination:{current:1}});
+    		this.getTableData({
+	    		pageSize:10,
+	    		startIndex:1
+	    	})
+    	})
+    }
+
+    componentDidMount(){
+    	this.getTableData({
+    		pageSize:10,
+    		startIndex:1
+    	})
+    }
+
+	render(){
+		//console.log("table被渲染")
+		return (
+			<Fragment>
+				<Table 
+					columns={this.columns} 
+					dataSource={this.state.dataSource} 
+					pagination={this.state.pagination} 
+					size="small" 
+					bordered={true}
+					loading={this.state.loading}
+					onChange={this.handleTableChange}
+        			scroll={{ x: this.width,y: this.height }}
+				/>
+			</Fragment>
+		)
+	}
+}
+export default Datatable;

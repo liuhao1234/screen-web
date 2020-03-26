@@ -1,0 +1,7 @@
+import { combineReducers } from 'redux-immutable';
+import headerReducer from './header-reducer';
+import layerReducer from './layer-reducer'
+export default combineReducers({
+    headerState:headerReducer,
+    layerState:layerReducer
+});

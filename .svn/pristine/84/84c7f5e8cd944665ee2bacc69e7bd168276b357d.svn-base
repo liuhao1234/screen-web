@@ -1,0 +1,33 @@
+import React,{ Component,Fragment } from 'react'
+import { Tabs } from 'antd'
+import SettingPropsForm from './SettingPropsForm'
+import SettingDataForm from './SettingDataForm'
+const { TabPane } = Tabs
+export default class SettingFrom extends Component{
+    constructor(props){
+        super(props)
+        this.state={
+            status:"props"
+        }
+    }
+    onSettingTabChange = (ev)=>{
+        // console.log(ev)
+        this.setState({
+            status:ev.target.value
+        })
+    }
+    render(){
+        return (
+            <Fragment>
+                <Tabs className="setting-form-tab" defaultActiveKey="1">
+                    <TabPane tab="属性" key="1">
+                        <SettingPropsForm />
+                    </TabPane>
+                    <TabPane tab="数据" key="2">
+                        <SettingDataForm />
+                    </TabPane>
+                </Tabs>
+            </Fragment>
+        )
+    }
+}

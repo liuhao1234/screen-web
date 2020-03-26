@@ -1,0 +1,146 @@
+import React,{Component,Fragment} from 'react'
+import Datatable from './table.js'
+import { 
+	Row,
+	Col,
+	Form,
+	Input,
+	Button,
+	Card,
+	Modal
+} from 'antd';
+import { PlusOutlined } from '@ant-design/icons'
+const layout = {//弹窗表单布局
+	labelCol: { span: 8 },
+	wrapperCol: { span: 12 },
+};
+
+class Menulist extends Component{
+	constructor(props){
+		super(props)
+		this.addItemForm = React.createRef();
+	}
+	state = {
+		searchValue:{
+			username:""
+		},
+		modalVisible:false
+	}
+	onMenuSearch = (value)=>{
+		this.setState({
+			searchValue:value
+		})
+	}
+
+	addItem = ()=>{
+		this.setState({
+			modalVisible:true
+		})
+	}
+
+	addItemOk = ()=>{
+		var value = this.addItemForm.current.getFieldsValue()
+		console.log(value)
+	}
+
+	addItemCancel = ()=>{
+		this.setState({
+			modalVisible:false
+		})
+	}
+
+	render() {
+		return (
+			<Fragment>
+				<Row
+					gutter={[10,10]}
+				>
+					<Col span={24}>
+						<Card
+							title="查询条件" 
+							bordered={false}
+							size="small"
+						>
+							<Form
+								onFinish={this.onMenuSearch}
+								layout="inline"
+							>
+								<Form.Item
+									label="菜单名称"
+									name="menuName"
+								>
+									<Input 
+										placeholder="请输入关键字"
+										autoComplete="off"
+									/>
+								</Form.Item>
+								<Form.Item>
+									<Button type="primary" htmlType="submit">查询</Button>
+								</Form.Item>
+							</Form>
+						</Card>
+					</Col>
+					<Col span={24}>
+						<Card
+							title="查询结果" 
+							bordered={false}
+							size="small"
+							extra={
+								<Button 
+									type="primary"
+									icon={<PlusOutlined />}
+									onClick={this.addItem}
+								>新增</Button>
+							}
+						>
+							<Datatable
+								searchValue={this.state.searchValue}
+							/>
+						</Card>
+					</Col>
+				</Row>
+				<Modal
+					title="添加菜单"
+					maskClosable={false}
+					visible={this.state.modalVisible}
+					onOk={this.addItemOk}
+					onCancel={this.addItemCancel}
+				>
+					<Form
+						{...layout}
+						ref={this.addItemForm}
+					>
+						<Form.Item
+							label="菜单名称"
+							name="menuName"
+						>
+							<Input 
+								placeholder="请输入关键字"
+								autoComplete="off"
+							/>
+						</Form.Item>
+						<Form.Item
+							label="菜单URL"
+							name="menuUrl"
+						>
+							<Input 
+								placeholder="请输入关键字"
+								autoComplete="off"
+							/>
+						</Form.Item>
+						<Form.Item
+							label="菜单排序"
+							name="sort"
+						>
+							<Input 
+								placeholder="请输入关键字"
+								autoComplete="off"
+							/>
+						</Form.Item>
+					</Form>
+				</Modal>
+			</Fragment>
+		)
+	}
+}
+export default Menulist;

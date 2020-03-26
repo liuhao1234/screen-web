@@ -1,0 +1,94 @@
+import React,{Component} from 'react'
+import classnames from 'classnames'
+import {connect} from 'react-redux'
+import PanelTitle from '../../Common/PanelTitle'
+import { DragDropContext,Draggable,Droppable } from 'react-beautiful-dnd'
+class LayerPanel extends Component{
+    initLayerList = ()=>{
+        // console.log(this.props.layerList.toJS())
+        return this.props.layerList.toJS().map((item,index)=>{
+            return  <Draggable title={item.name} key={index}>
+                        {/* <i className='iconfont icon-map'></i>
+                        <span>{item.name}</span> */}
+                        <div>aaa</div>
+                    </Draggable>
+        })
+    }
+    onDragEnd = result => {
+		console.log(result)
+	};
+    render(){
+        // console.log(this.props)
+        return(
+            <div className={classnames("layer-panel",this.props.status)}>
+                <PanelTitle
+                    icon="icon-layers"
+                    name="图层"
+                />
+                <DragDropContext 
+                    onDragEnd={this.onDragEnd}
+                >
+                    <Droppable 
+                        droppableId="layerList"
+                    >
+                        {(provided, snapshot) => {
+                            return <div 
+                                className="layer-list"
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                            >
+                                
+                                <Draggable 
+                                    key="aaa" 
+                                    draggableId="aaa"
+                                    index="0"
+                                >
+                                    {(provided, snapshot) => {
+                                        return <div
+                                            className="list-item"
+                                            ref={provided.innerRef}// 需要处理判断进行的样式返回
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                        >
+                                            <i className="iconfont icon-map"></i><span>折线图1</span>
+                                        </div>
+                                    }}
+                                </Draggable>
+                                <Draggable 
+                                    key="bbb" 
+                                    draggableId="bbb"
+                                    index="1"
+                                >
+                                    {(provided, snapshot) => {
+                                        return <div
+                                            className="list-item"
+                                            ref={provided.innerRef}// 需要处理判断进行的样式返回
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                        >
+                                            <i className="iconfont icon-map"></i><span>折线图2</span>
+                                        </div>
+                                    }}
+                                </Draggable>
+                                
+                                {provided.placeholder}
+                            </div>
+                        }}
+                    </Droppable>
+                </DragDropContext>
+            </div>
+        )
+    }
+}
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        layerList:state.layerState.get("layerList")
+    }
+}
+
+const mapDispatchToProps = dispatch=>{
+    return {
+        
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(LayerPanel);

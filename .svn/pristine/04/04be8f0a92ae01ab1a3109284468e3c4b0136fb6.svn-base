@@ -1,0 +1,101 @@
+import React,{ Component,Fragment } from 'react';
+import { Table,Tooltip } from 'antd';
+import { EditOutlined ,DeleteOutlined  } from '@ant-design/icons';
+import { data } from './data'
+class Datatable extends Component{
+	constructor(props){
+		super(props);
+		this.columns = [{ //列数据
+			title: '菜单名称',
+			align:'center',
+			dataIndex: 'menuName'
+		}, {
+			title: '菜单URL',
+			align:'center',
+			dataIndex: 'menuUrl'
+		},{
+            title: '菜单顺序',
+            align:'center',
+            dataIndex: 'sort'
+        }, {
+			title: '操作',
+			align:'center',
+			dataIndex: 'action',
+			render: (text, record) => (
+					<Fragment>
+                		<Tooltip title="编辑">
+							<EditOutlined  className="table-btn" type='edit' onClick={this.handleEdit.bind(this,record)} style={{color:'green'}} />
+						</Tooltip>
+						<Tooltip title="删除">
+							<DeleteOutlined className="table-btn" type='delete' onClick={this.handleDelete.bind(this,record)} style={{color:'red'}} />
+						</Tooltip>
+					</Fragment>
+			)
+		}]
+	}
+
+	state = {
+		dataSource:[],
+		pagination:{
+			pageSize:10,
+			current:1,
+			total:100,
+			showTotal:function(total, range){
+				return "共"+total+"条记录，当前显示"+ range[0]+"到"+ range[1] +"条";
+			}
+		}
+	}
+	
+	handleEdit = (record)=>{
+		console.log(record)
+	}
+
+	handleDelete = (record) => {
+		console.log(record)
+	}
+
+	onChange = (pagination)=>{
+		console.log(this.props.searchValue)
+		console.log(pagination)
+		this.setState((state,props)=>{
+			return {
+				dataSource:data,
+				pagination:{
+					...state.pagination,
+					...pagination
+				}
+			}
+		})
+	}
+
+	componentDidMount(){
+		this.setState((state,props)=>{
+			return {
+				dataSource:data,
+				pagination:{
+					...state.pagination
+				}
+			}
+		})
+	}
+
+	componentWillReceiveProps(nextProps){
+		console.log(nextProps)
+	}
+
+	render(){
+		return (
+			<Fragment>
+				<Table 
+					columns={this.columns}
+					dataSource={this.state.dataSource}
+					size="small" 
+					bordered={true}
+					pagination={this.state.pagination}
+					onChange={this.onChange}
+				/>
+			</Fragment>
+		)
+	}
+}
+export default Datatable;

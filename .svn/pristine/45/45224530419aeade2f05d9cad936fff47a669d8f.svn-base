@@ -1,0 +1,31 @@
+import React,{Component,Fragment} from 'react';
+import SearchForm from './form.js';
+import Datatable from './table.js';
+import { Button, } from 'antd';
+import { PlusOutlined } from '@ant-design/icons'
+
+class Menulist extends Component{
+	render() {
+		return (
+			<Fragment>
+				<div className="pmain_con">
+					<div className="pmainconinner">
+						<div className="search">
+							<SearchForm/>
+						</div>
+						<div className="pmain_show">
+							<div className="common_area">
+								<div className="table_title">
+									<span className="title_txt">菜单列表</span>
+									<Button type="primary"><PlusOutlined type="plus" />添加</Button>
+								</div>
+								<Datatable/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</Fragment>
+		)
+	}
+}
+export default Menulist;

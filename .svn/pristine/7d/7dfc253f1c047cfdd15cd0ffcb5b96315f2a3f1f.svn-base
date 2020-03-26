@@ -1,0 +1,30 @@
+import React,{ Component } from 'react'
+import { Link } from 'react-router-dom'
+class Sidebar extends Component{
+    render(){
+        return (
+            <div className="psidebar">
+                <div className="psidebarinner">
+                    <div className="sidebar_list">
+                        <ul>
+                        <li className="active">
+                                <Link to="">
+                                    <i className="iconfont icon-publish"></i>
+                                    <span>历史发布</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="">
+                                    <i className="iconfont icon-publish"></i>
+                                    <span>历史发布</span>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+export default Sidebar;

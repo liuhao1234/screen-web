@@ -1,0 +1,28 @@
+export const sort_modules = "sort_modules";
+export const get_screen_data = "get_screen_data"
+export const change_item = "change_item"
+export const change_item_arr = "change_item_arr"
+export function getScreenData(data){
+    return {
+        type:get_screen_data,
+        data
+    }
+}
+export function sortModules(data){
+    return {
+        type:sort_modules,
+        data
+    }
+}
+export function changeItem(data){
+    return {
+        type:change_item,
+        data
+    }
+}
+export function changeItemArr(data){
+    return {
+        type:change_item_arr,
+        data
+    }
+}

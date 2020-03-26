@@ -1,0 +1,87 @@
+/* 该文件是针对antd样式的重置 */
+/* common */
+.screen-editor-page label{
+    color: #fff;
+    line-height: 32px;
+}
+.screen-editor-page .ant-input,
+.screen-editor-page .ant-input-affix-wrapper,
+.screen-editor-page .ant-select-selector,
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector{
+    background-color: transparent!important;
+    color: #fff;
+}
+.screen-editor-page .ant-input-affix-wrapper .ant-input-prefix, 
+.screen-editor-page .ant-input-affix-wrapper .ant-input-suffix{
+    color: #fff;
+}
+.screen-editor-page .ant-select-arrow{
+    color: #fff;
+}
+.ant-select-item-option:not(.ant-select-item-option-disabled).vs-dark{
+    background: #464646;
+    color: #fff;
+}
+.ant-select-item-option-active:not(.ant-select-item-option-disabled).vs-dark{
+    background: #717171;
+    color: #fff;
+}
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled).vs-dark{
+    background: #5f5e5e;
+    color: #fff;
+}
+.screen-editor-page .ant-form-item{
+    margin-bottom: 10px;
+}
+.screen-editor-page .ant-collapse-content{
+    overflow: visible;
+}
+/* modules reset 组件集中覆盖antdesign样式 */
+.modules-panel .ant-tabs .ant-tabs-left-bar .ant-tabs-tab, 
+.modules-panel .ant-tabs .ant-tabs-right-bar .ant-tabs-tab{
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    color:#fff;
+    background: #464646;
+}
+.modules-panel .ant-tabs .ant-tabs-nav .ant-tabs-tab-active{
+    color:#1890ff;
+    background: #545353;
+}
+.modules-panel .ant-tabs .ant-tabs-left-content{
+    padding: 0 5px;
+    border-left: none;
+}
+/* setting reset 配置面板中覆盖antdesign样式 */
+.setting-form-tab .ant-tabs-bar{
+    margin-bottom: 10px;
+    border-bottom: 1px solid #464646;
+}
+.setting-form-tab .ant-tabs-nav-wrap .ant-tabs-nav{
+    width: 100%;
+}
+.setting-form-tab .ant-tabs-nav-wrap .ant-tabs-nav .ant-tabs-tab{
+    margin: 0;
+    width: 50%;
+    text-align: center;
+    color: #fff;
+}
+.setting-form-tab .ant-tabs-nav-wrap .ant-tabs-nav .ant-tabs-tab.ant-tabs-tab-active{
+    color: #1890ff;
+}
+.setting-form-wrap .ant-collapse-borderless{
+    background-color: transparent;
+    color: #fff;
+}
+.setting-form-wrap .ant-collapse > .ant-collapse-item > .ant-collapse-header{
+    color: #fff;
+}
+.setting-form-wrap .ant-collapse-borderless > .ant-collapse-item{
+    border-bottom: 1px solid #464646;
+}
+.setting-form-wrap .ant-form-item-label > label{
+    color: #fff;
+}

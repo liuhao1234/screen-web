@@ -1,0 +1,89 @@
+import React,{ Component } from 'react'
+import { ChromePicker } from 'react-color'
+import { Input } from 'antd'
+export default class ColorPicker extends Component {
+    state = {
+        displayColorPicker: false,
+        background:"rgba(255,0,0,1)",
+        hex:"#ff0000"
+    }
+
+    handleClick = () => {
+        this.setState({ 
+            displayColorPicker: !this.state.displayColorPicker 
+        })
+    }
+
+    handleClose = () => {
+        this.setState({ 
+            displayColorPicker: false 
+        })
+    }
+
+    colorPickerChange = (color,event)=>{
+        console.log(color)
+        var result = this.getColor(color)
+        this.setState({ 
+            background: result,
+            hex:color.hex
+        })
+    }
+
+    InputChange = (value)=>{
+        console.log(value)
+        this.setState({
+            hex:value
+        })
+    }
+
+    getColor = (color,type)=>{
+        switch(type){
+            case "hex":
+                return color.hex
+            default:
+                return `rgba(${color.rgb.r},${color.rgb.g},${color.rgb.b},${color.rgb.a})`
+        }
+    }
+
+    render() {
+        const popover = {
+            position: 'absolute',
+            zIndex: '2',
+        }
+        const cover = {
+            position: 'fixed',
+            top: '0px',
+            right: '0px',
+            bottom: '0px',
+            left: '0px'
+        }
+        return (
+            <div>
+                <button >Pick Color</button>
+                <div class="color-picker-input">
+                    <i 
+                        onClick={ this.handleClick }
+                        style={{background:this.state.background}}
+                    ></i>
+                    <Input 
+                        type="text" 
+                        value={this.state.hex}
+                        onChange={this.InputChange}
+                    />
+                </div>
+                { 
+                    this.state.displayColorPicker?
+                    <div style={ popover }>
+                        <div style={ cover } onClick={ this.handleClose }></div>
+                        <ChromePicker
+                            color={ this.state.background }
+                            onChangeComplete={ this.colorPickerChange }
+                        />
+                    </div> 
+                    : null 
+                }
+            </div>
+        )
+    }
+}
+

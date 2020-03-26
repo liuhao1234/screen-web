@@ -1,0 +1,21 @@
+import {fromJS} from "immutable";
+import { save_user_info } from "../actions/login-actions";
+
+const initialState = fromJS({
+    userInfo:{
+        realName:""
+    }
+})
+
+export default (state=initialState,action)=>{
+    switch (action.type){
+        case save_user_info:{
+            // console.log(action)
+            const result = state.set("userInfo",action.data)
+            return result
+        }
+
+        default:
+            return state
+    }
+}

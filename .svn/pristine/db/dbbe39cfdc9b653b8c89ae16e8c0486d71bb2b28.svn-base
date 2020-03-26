@@ -1,0 +1,29 @@
+import { layer_list } from '../actions/layer-actions';
+import { fromJS } from 'immutable';
+
+const initialState = fromJS({
+    layerList:[{
+        name:"aaa",
+        type:"line",
+        zindex:0
+    },{
+        name:"aaa",
+        type:"bar",
+        zindex:1
+    },{
+        name:"aaa",
+        type:"pie",
+        zindex:2
+    }],
+})
+
+export default (state=initialState,action)=>{
+    switch (action.type){
+        case layer_list:{
+            return state
+        }
+
+        default:
+            return state
+    }
+}

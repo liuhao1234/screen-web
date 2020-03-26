@@ -1,0 +1,104 @@
+import React,{Component} from 'react'
+import { connect } from 'react-redux'
+import { 
+    showLayer,
+    showModules,
+    showSetting,
+    showVisualist
+} from '../../store/actions/header-actions'
+import HeaderIcon from '../common/HeaderIcon'
+class Header extends Component{
+    showCanvasSetting = ()=>{
+        this.props.showSetting(true)
+    }
+    render(){
+        const { 
+                layerPanelShow,     //图层面板显示状态属性
+                modulesPanelShow,   //组件面板显示状态属性
+                visualistPanelShow, //历史大屏面板显示状态属性
+                settingPanelShow,   //设置面板显示状态属性
+                showVisualist,       //改变历史大屏面板显示状态方法
+                showLayer,
+                showModules,
+                showSetting
+            } = this.props;
+        return (
+            <div className="header">
+                <div className="header-left clear-fixed">
+                    <span 
+                        className="header-icon" 
+                        title="画布设置"
+                        onClick={this.showCanvasSetting}
+                    >
+                        <i className="iconfont icon-layout"></i>
+                    </span>
+                    <div className="icon-group clear-fixed">
+                        <HeaderIcon 
+                            icon="icon-history-clock" 
+                            title="历史大屏"
+                            checked={visualistPanelShow}
+                            onStatusChange={showVisualist}
+                        />
+                        <HeaderIcon 
+                            icon="icon-layers" 
+                            title="图层"
+                            checked={layerPanelShow}
+                            onStatusChange={showLayer}
+                        />
+                        <HeaderIcon 
+                            icon="icon-box" 
+                            title="组件"
+                            checked={modulesPanelShow}
+                            onStatusChange={showModules}
+                        />
+                        <HeaderIcon 
+                            icon="icon-setting" 
+                            title="组件设置"
+                            checked={settingPanelShow}
+                            onStatusChange={showSetting}
+                        />
+                    </div>
+                </div>
+                <div className="header-title">
+                    <span><i className="iconfont icon-title"></i><b>瓦房店大屏</b></span>
+                </div>
+                <div className="header-right clear-fixed">
+                    <span className="header-icon" title="预览"><i className="iconfont icon-view"></i></span>
+                    <span className="header-icon" title="发布"><i className="iconfont icon-publish"></i></span>
+                </div>
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = (state,ownProps)=>{
+    return {
+        layerPanelShow:state.getIn(["headerState","layerPanelShow"]),
+        modulesPanelShow:state.getIn(["headerState","modulesPanelShow"]),
+        visualistPanelShow:state.getIn(["headerState","visualistPanelShow"]),
+        settingPanelShow:state.getIn(["headerState","settingPanelShow"])
+    }
+}
+
+const mapDispatchToProps = dispatch=>{
+    return {
+        showVisualist(status){
+            const action = showVisualist(status)
+            dispatch(action)
+        },
+        showLayer(status){
+            const action = showLayer(status)
+            dispatch(action)
+        },
+        showModules(status){
+            const action = showModules(status)
+            dispatch(action)
+        },
+        showSetting(status){
+            const action = showSetting(status)
+            dispatch(action)
+        }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Header);

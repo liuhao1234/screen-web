@@ -1,0 +1,20 @@
+import { change_width,change_height } from '../actions/editor-actions';
+import { fromJS } from 'immutable';
+
+const initialState = fromJS({
+    width:1920,
+    height:1080
+})
+
+export default (state=initialState,action)=>{
+    switch (action.type){
+        case change_width:{
+            return state.set("width",action.data)
+        }
+        case change_height:{
+            return state.set("height",action.data)
+        }
+        default:
+            return state
+    }
+}

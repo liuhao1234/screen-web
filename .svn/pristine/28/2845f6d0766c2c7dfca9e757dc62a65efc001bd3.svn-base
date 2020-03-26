@@ -1,0 +1,78 @@
+import React,{ Component } from 'react'
+import { Row,Col,Collapse,Form,Input } from 'antd'
+import ColorPicker from '../ColorPicker'
+const { Panel } = Collapse;
+class SettingPropsForm extends Component{
+    colorChange = (value,event)=>{
+        console.log(value)
+    }
+    render(){
+        return (
+            <div className="setting-form-wrap">
+                <Form>
+                    <Collapse bordered={false}>
+                        <Panel header="位置大小" key="1">
+                            <Row gutter={10}>
+                                <Col span={6}>
+                                    <label htmlFor="">大小</label>
+                                </Col>
+                                <Col span={9}>
+                                    <Form.Item>
+                                        <Input suffix="w" />
+                                    </Form.Item>
+                                </Col>
+                                <Col span={9}>
+                                    <Form.Item>
+                                        <Input suffix="h" />
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                            <Row gutter={10}>
+                                <Col span={6}>
+                                    <label htmlFor="">位置</label>
+                                </Col>
+                                <Col span={9}>
+                                    <Form.Item>
+                                        <Input suffix="x" />
+                                    </Form.Item>
+                                </Col>
+                                <Col span={9}>
+                                    <Form.Item>
+                                        <Input suffix="y" />
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                            <Row gutter={10}>
+                                <Col span={6}>
+                                    <label htmlFor="">背景色</label>
+                                </Col>
+                                <Col span={18}>
+                                    <ColorPicker />
+                                </Col>
+                            </Row>
+                        </Panel>
+                        <Panel header="标题" key="2">
+                            <div style={{color:"#fff"}}>标题</div>
+                        </Panel>
+                        <Panel header="图例" key="3">
+                            <div style={{color:"#fff"}}>图例</div>
+                        </Panel>
+                        <Panel header="折线图样式" key="4">
+                            <div style={{color:"#fff"}}>折线图样式</div>
+                        </Panel>
+                        <Panel header="X轴" key="5">
+                            <div style={{color:"#fff"}}>X轴</div>
+                        </Panel>
+                        <Panel header="Y轴" key="6">
+                            <div style={{color:"#fff"}}>Y轴</div>
+                        </Panel>
+                        <Panel header="数据系列" key="7">
+                            <div style={{color:"#fff"}}>数据系列</div>
+                        </Panel>
+                    </Collapse>
+                </Form>
+            </div>
+        )
+    }
+}
+export default SettingPropsForm

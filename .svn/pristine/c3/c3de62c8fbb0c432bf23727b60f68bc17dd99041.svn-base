@@ -1,0 +1,170 @@
+{
+  "id": "1657603",
+  "name": "数家大屏",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "9833950",
+      "name": "title-text",
+      "font_class": "title",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "1282",
+      "name": "列表",
+      "font_class": "list",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "609556",
+      "name": "添加",
+      "font_class": "fill-add",
+      "unicode": "e71f",
+      "unicode_decimal": 59167
+    },
+    {
+      "icon_id": "721150",
+      "name": "删除 (1)",
+      "font_class": "delete",
+      "unicode": "e68c",
+      "unicode_decimal": 59020
+    },
+    {
+      "icon_id": "785041",
+      "name": "设置",
+      "font_class": "setting",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "999215",
+      "name": "布局",
+      "font_class": "background",
+      "unicode": "e6de",
+      "unicode_decimal": 59102
+    },
+    {
+      "icon_id": "1027698",
+      "name": "文本",
+      "font_class": "text",
+      "unicode": "e75e",
+      "unicode_decimal": 59230
+    },
+    {
+      "icon_id": "1813698",
+      "name": "box-盒子",
+      "font_class": "box",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "2200633",
+      "name": "删除",
+      "font_class": "fill-delete",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "3216582",
+      "name": "地图",
+      "font_class": "map",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "5121491",
+      "name": "发布",
+      "font_class": "publish",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "7274104",
+      "name": "基本部件",
+      "font_class": "module-base",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "7274110",
+      "name": "预览",
+      "font_class": "view",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "7556878",
+      "name": "减少",
+      "font_class": "sub",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "7791000",
+      "name": "其他",
+      "font_class": "more",
+      "unicode": "e7eb",
+      "unicode_decimal": 59371
+    },
+    {
+      "icon_id": "9512581",
+      "name": "布局",
+      "font_class": "layout",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "9850181",
+      "name": "基础",
+      "font_class": "base",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "10708380",
+      "name": "减少 reduce",
+      "font_class": "fill-sub",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "10793673",
+      "name": "粗匣框线_边框操作_jurassic",
+      "font_class": "border",
+      "unicode": "e6fd",
+      "unicode_decimal": 59133
+    },
+    {
+      "icon_id": "11200646",
+      "name": "图层",
+      "font_class": "layers",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "11671976",
+      "name": "地图",
+      "font_class": "china",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "11855573",
+      "name": "历史记录",
+      "font_class": "history-clock",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "12978147",
+      "name": "添加",
+      "font_class": "add",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    }
+  ]
+}
