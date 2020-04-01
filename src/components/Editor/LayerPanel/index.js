@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import { sortModules } from '../../../store/actions/screen-actions'
 import PanelTitle from '../../Common/PanelTitle'
 import { DragDropContext,Draggable,Droppable } from 'react-beautiful-dnd'
+import { changeSetting } from '../../../store/actions/setting-actions'
 class LayerPanel extends Component{
     getItemStyle = (isDragging, draggableStyle) => {
         return {
@@ -28,8 +29,11 @@ class LayerPanel extends Component{
         );
         this.props.sortModules(items)
     }
+    layerClick = (id)=>{
+        this.props.changeSetting(id)
+    }
     render(){
-        // console.log(this.props.layerList.toJS())
+        
         return(
             <div className={classnames("layer-panel",this.props.status)}>
                 <PanelTitle
@@ -55,14 +59,19 @@ class LayerPanel extends Component{
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
-                                            className="list-item"
+                                            className={classnames("list-item",{
+                                                "active":item.get("id") === this.props.settingId
+                                            })}
                                             style={this.getItemStyle(
                                                 snapshot.isDragging,
                                                 provided.draggableProps.style
                                             )}
+                                            onClick={this.layerClick.bind(this,item.get("id"))}
                                         >
-                                            <i className="iconfont icon-china"></i>
-                                            <span>{item.get("name")}</span>
+                                            <div className="list-item-inner">
+                                                <i className="iconfont icon-china"></i>
+                                                <span>{item.get("name")}</span>
+                                            </div>
                                         </div>
                                     )}
                                     </Draggable>
@@ -78,7 +87,8 @@ class LayerPanel extends Component{
 }
 const mapStateToProps = (state,ownProps)=>{
     return {
-        layerList:state.screenState.get("modules")
+        layerList:state.screenState.get("modules"),
+        settingId:state.settingState.get("id")
     }
 }
 
@@ -86,6 +96,10 @@ const mapDispatchToProps = dispatch=>{
     return {
         sortModules(data){
             const action = sortModules(data)
+            dispatch(action)
+        },
+        changeSetting(data){
+            const action = changeSetting(data)
             dispatch(action)
         }
     }

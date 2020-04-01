@@ -3,11 +3,13 @@ import classnames from 'classnames'
 import { connect } from 'react-redux'
 import echarts from 'echarts'
 import ReactEcharts from 'echarts-for-react';
+import chinaJson from 'echarts/map/json/china.json'
 import dark from '../../../config/echarts-theme/dark'
 import { Slider, InputNumber } from 'antd'
 import { Rnd } from 'react-rnd';
 import { changeItem,changeItemArr,deleteModule } from '../../../store/actions/screen-actions'
 import { changeSetting } from '../../../store/actions/setting-actions'
+echarts.registerMap('china', chinaJson);
 echarts.registerTheme('dark',dark);
 class CanvasPanel extends Component{
     state = {
@@ -126,41 +128,6 @@ class CanvasPanel extends Component{
             editorSize:editorSize
         })
     }
-    getLineOptionsBymodule = (module)=>{
-        // console.log(module)
-        // const clearData = eval(module.data.data.replace(/\ +/g,"").replace(/[\r\n]/g,""));
-        // // console.log(clearData)
-        // let legendArr = []
-        // let xAxisArr = []
-        // let seriseArr = []
-
-        // clearData.forEach(value=>{
-        //     legendArr.push(value.name)
-        //     let seriseData = []
-        //     xAxisArr = []
-        //     value.data.forEach(val=>{
-        //         xAxisArr.push(val.name)
-        //         seriseData.push(val.value)
-        //     })
-        //     seriseArr.push({
-        //         name:value.name,
-        //         type:'line',
-        //         smooth:false,
-        //         label:{
-        //             show:false,
-        //             offset:[0,0],
-        //             fontSize:14
-        //         },
-        //         data:seriseData
-        //     })
-        // })
-        
-        // module.options.legend.data = legendArr
-        // module.options.xAxis.data = xAxisArr
-        // module.options.series = seriseArr
-        // console.log(module)
-        // return module.options
-    }
     canvasSetting = ()=>{
         //编辑大屏面板
         this.moduleSetting({
@@ -217,41 +184,266 @@ class CanvasPanel extends Component{
                         >
                             {
                                 this.props.modules.toJS().length!==0&&this.props.modules.toJS().map((item,index)=>{
-                                    return <Rnd
-                                        key={item.id}
-                                        size={{
-                                            width:item.style.width,
-                                            height:item.style.height
-                                        }}
-                                        position={{
-                                            x:item.style.x,
-                                            y:item.style.y
-                                        }}
-                                        style={{
-                                            zIndex:this.props.modules.toJS().length-index
-                                        }}
-                                        scale={editorScale}
-                                        onDrag={this.itemDrag.bind(this,item.id)}
-                                        onResize={this.itemResize.bind(this,item.id)}
-                                    >
-                                        <div className="modules-wrap"
-                                            style={{background:item.style.background}}
-                                            onClick={this.moduleSetting.bind(this,item)}
-                                        >
-                                            <i 
-                                                className="iconfont icon-delete"
-                                                onClick={this.deleteModule.bind(this,item.id)}
-                                            ></i>
-                                            <ReactEcharts
-                                                option={item.options}
-                                                theme="dark"
+                                    if(item.type === "text"){
+                                        return <Rnd
+                                                key={item.id}
+                                                size={{
+                                                    width:"auto",
+                                                    height:"auto"
+                                                }}
+                                                position={{
+                                                    x:item.style.x,
+                                                    y:item.style.y
+                                                }}
                                                 style={{
+                                                    zIndex:this.props.modules.toJS().length-index
+                                                }}
+                                                scale={editorScale}
+                                                onDrag={this.itemDrag.bind(this,item.id)}
+                                                
+                                            >
+                                                <div 
+                                                    className="modules-wrap"
+                                                    onClick={this.moduleSetting.bind(this,item)}
+                                                >
+                                                    <div className="module-operate">
+                                                        <i 
+                                                            className="iconfont icon-delete"
+                                                            onClick={this.deleteModule.bind(this,item.id)}
+                                                        ></i>
+                                                    </div>
+                                                    <span
+                                                        style={{
+                                                            color:item.options.style.color,
+                                                            fontSize:item.options.style.fontSize
+                                                        }}
+                                                    >{item.options.text}</span>
+                                                </div>
+                                            </Rnd>
+                                    }else if(item.type === "block"){
+                                        return <Rnd
+                                                key={item.id}
+                                                size={{
                                                     width:item.style.width,
                                                     height:item.style.height
                                                 }}
-                                            />
-                                        </div>
-                                    </Rnd>
+                                                position={{
+                                                    x:item.style.x,
+                                                    y:item.style.y
+                                                }}
+                                                style={{
+                                                    zIndex:this.props.modules.toJS().length-index
+                                                }}
+                                                scale={editorScale}
+                                                onDrag={this.itemDrag.bind(this,item.id)}
+                                                onResize={this.itemResize.bind(this,item.id)}
+                                            >
+                                                <div 
+                                                    className="modules-wrap"
+                                                    onClick={this.moduleSetting.bind(this,item)}
+                                                >
+                                                    <div className="module-operate">
+                                                        <i 
+                                                            className="iconfont icon-delete"
+                                                            onClick={this.deleteModule.bind(this,item.id)}
+                                                        ></i>
+                                                    </div>
+                                                    <div
+                                                        style={{
+                                                            width:item.style.width,
+                                                            height:item.style.height,
+                                                            backgroundColor:item.style.background,
+                                                            border:item.style.border.show?`${item.style.border.width}px solid ${item.style.border.color}`:"none",
+                                                            borderRadius:item.style.border.radius
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                            </Rnd>
+                                    }else if(item.type === "border"){
+                                        return <Rnd
+                                                key={item.id}
+                                                size={{
+                                                    width:item.style.width,
+                                                    height:item.style.height
+                                                }}
+                                                position={{
+                                                    x:item.style.x,
+                                                    y:item.style.y
+                                                }}
+                                                style={{
+                                                    zIndex:this.props.modules.toJS().length-index
+                                                }}
+                                                scale={editorScale}
+                                                onDrag={this.itemDrag.bind(this,item.id)}
+                                                onResize={this.itemResize.bind(this,item.id)}
+                                            >
+                                                <div className="modules-wrap"
+                                                    style={{background:item.style.background}}
+                                                    onClick={this.moduleSetting.bind(this,item)}
+                                                >
+                                                    <div className="module-operate">
+                                                        <i 
+                                                            className="iconfont icon-delete"
+                                                            onClick={this.deleteModule.bind(this,item.id)}
+                                                        ></i>
+                                                    </div>
+                                                    <div 
+                                                        className={"module-border border-type"+item.style.borderType}
+                                                        style={{
+                                                            borderWidth:`${item.style.height/2>100?100:item.style.height/2}px ${item.style.width/2>150?150:item.style.width/2}px`,
+                                                            borderImageSlice:`${item.style.height/2>100?100:item.style.height/2} ${item.style.width/2>150?150:item.style.width/2}`
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                            </Rnd>
+                                    }else if(item.type === "titleBorder"){
+                                        return <Rnd
+                                                key={item.id}
+                                                size={{
+                                                    width:item.style.width,
+                                                    height:item.style.height
+                                                }}
+                                                position={{
+                                                    x:item.style.x,
+                                                    y:item.style.y
+                                                }}
+                                                style={{
+                                                    zIndex:this.props.modules.toJS().length-index
+                                                }}
+                                                scale={editorScale}
+                                                onDrag={this.itemDrag.bind(this,item.id)}
+                                                onResize={this.itemResize.bind(this,item.id)}
+                                            >
+                                                <div className="modules-wrap"
+                                                    style={{background:item.style.background}}
+                                                    onClick={this.moduleSetting.bind(this,item)}
+                                                >
+                                                    <div className="module-operate">
+                                                        <i 
+                                                            className="iconfont icon-delete"
+                                                            onClick={this.deleteModule.bind(this,item.id)}
+                                                        ></i>
+                                                    </div>
+                                                    <div 
+                                                        className={"module-title-border border-title-type"+item.style.borderType}
+                                                    ></div>
+                                                </div>
+                                            </Rnd>
+                                    }else if(item.type === "pie"){
+                                        return <Rnd
+                                                key={item.id}
+                                                size={{
+                                                    width:item.style.width,
+                                                    height:item.style.height
+                                                }}
+                                                position={{
+                                                    x:item.style.x,
+                                                    y:item.style.y
+                                                }}
+                                                style={{
+                                                    zIndex:this.props.modules.toJS().length-index
+                                                }}
+                                                scale={editorScale}
+                                                onDrag={this.itemDrag.bind(this,item.id)}
+                                                onResize={this.itemResize.bind(this,item.id)}
+                                            >
+                                                <div className="modules-wrap"
+                                                    style={{background:item.style.background}}
+                                                    onClick={this.moduleSetting.bind(this,item)}
+                                                >
+                                                    <div className="module-operate">
+                                                        <i 
+                                                            className="iconfont icon-delete"
+                                                            onClick={this.deleteModule.bind(this,item.id)}
+                                                        ></i>
+                                                    </div>
+                                                    <ReactEcharts
+                                                        option={item.options}
+                                                        theme="dark"
+                                                        style={{
+                                                            width:item.style.width,
+                                                            height:item.style.height
+                                                        }}
+                                                    />
+                                                </div>
+                                            </Rnd>
+                                    }else if(item.type === "map"){
+                                        return <Rnd
+                                                key={item.id}
+                                                size={{
+                                                    width:item.style.width,
+                                                    height:item.style.height
+                                                }}
+                                                position={{
+                                                    x:item.style.x,
+                                                    y:item.style.y
+                                                }}
+                                                style={{
+                                                    zIndex:this.props.modules.toJS().length-index
+                                                }}
+                                                scale={editorScale}
+                                                onDrag={this.itemDrag.bind(this,item.id)}
+                                                onResize={this.itemResize.bind(this,item.id)}
+                                            >
+                                                <div className="modules-wrap"
+                                                    style={{background:item.style.background}}
+                                                    onClick={this.moduleSetting.bind(this,item)}
+                                                >
+                                                    <div className="module-operate">
+                                                        <i 
+                                                            className="iconfont icon-delete"
+                                                            onClick={this.deleteModule.bind(this,item.id)}
+                                                        ></i>
+                                                    </div>
+                                                        <ReactEcharts
+                                                            option={item.options}
+                                                            theme="dark"
+                                                            style={{
+                                                                width:item.style.width,
+                                                                height:item.style.height
+                                                            }}
+                                                        />
+                                                </div>
+                                            </Rnd>
+                                    }else{ //柱图及折线图
+                                        return <Rnd
+                                                key={item.id}
+                                                size={{
+                                                    width:item.style.width,
+                                                    height:item.style.height
+                                                }}
+                                                position={{
+                                                    x:item.style.x,
+                                                    y:item.style.y
+                                                }}
+                                                style={{
+                                                    zIndex:this.props.modules.toJS().length-index
+                                                }}
+                                                scale={editorScale}
+                                                onDrag={this.itemDrag.bind(this,item.id)}
+                                                onResize={this.itemResize.bind(this,item.id)}
+                                            >
+                                                <div className="modules-wrap"
+                                                    style={{background:item.style.background}}
+                                                    onClick={this.moduleSetting.bind(this,item)}
+                                                >
+                                                    <div className="module-operate">
+                                                        <i 
+                                                            className="iconfont icon-delete"
+                                                            onClick={this.deleteModule.bind(this,item.id)}
+                                                        ></i>
+                                                    </div>
+                                                    <ReactEcharts
+                                                        option={item.options}
+                                                        theme="dark"
+                                                        style={{
+                                                            width:item.style.width,
+                                                            height:item.style.height
+                                                        }}
+                                                    />
+                                                </div>
+                                            </Rnd>
+                                    }
                                 })
                             }
                         </div>

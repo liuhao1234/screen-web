@@ -11,7 +11,7 @@ export default ()=>{
                 <Route path="/editor" render={(params)=>{
                     const { path } = params.match;
                     const token = sessionStorage.getItem("beautifulGirl")
-                    if(token){
+                    if(true){
                         return <Switch>
                             <Route path={path} component={ScreenEditor} />
                         </Switch>

@@ -1,15 +1,11 @@
-import React,{ Component,Fragment } from 'react';
+import React,{ Component } from 'react';
 import {connect} from 'react-redux'
 import { 
     Row,
     Col,
     Collapse,
     Form,
-    Input,
-    Switch,
-    Select,
-    InputNumber,
-    Divider
+    Input
 } from 'antd'
 import { changeScreen } from '../../../store/actions/screen-actions'
 import ColorPicker from '../ColorPicker'

@@ -15,7 +15,7 @@ import Datatable from './table.js'
 
 const { TextArea } = Input;
 
-const layout = {//弹窗表单布局
+const layout = {//弹窗表单布局qq
 	labelCol: { span: 8 },
 	wrapperCol: { span: 12 },
 };

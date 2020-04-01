@@ -196,6 +196,41 @@
     text-align center
     color #fff
 }
+.border-selector .ant-select-selector{
+    border-color transparent!important
+}
+.border-select-option{
+    width 162px
+    height 60px
+    border-width 30px 81px;
+    border-style solid;
+    border-image-slice 30 81
+    border-image-repeat initial
+    border-image-width initial
+    border-image-outset initial
+}
+.ant-select-selection-item .border-select-option{
+    width 140px
+    height 30px
+    border-width 15px 70px
+    border-image-slice 15 70
+}
+.border-title-option0{
+    background url(../images/title-border-type0.png) no-repeat center center
+    background-size contain
+    border none
+}
+.border-title-option1{
+    background url(../images/title-border-type1.png) no-repeat center center
+    background-size contain
+    border none
+}
+.border-option0{
+    border-image-source url(../images/border-type0.png)
+}
+.border-option1{
+    border-image-source url(../images/border-type1.png)
+}
 /* layer-panel style图层 */
 .layer-panel{
     position: absolute;
@@ -227,16 +262,23 @@
     color: #fff;
     height: 36px;
     line-height: 36px;
-    padding: 0 10px;
     cursor: pointer;
 }
-.layer-list .list-item:hover{
+.layer-list .list-item:hover .list-item-inner{
     background: #585858;
 }
 .layer-list .list-item i{
     font-size: 18px;
     vertical-align: top;
     margin-right: 5px;
+}
+.layer-list .list-item .list-item-inner{
+    width 100%
+    height 100%
+    padding 0 10px
+}
+.layer-list .list-item.active .list-item-inner{
+    background:#7b7b7b;
 }
 .layer-list .list-item span{
     display: inline-block;
@@ -329,6 +371,12 @@
 }
 .module-item .item-poster.item-block{
     background-image: url(../images/modules-poster07.png);
+}
+.module-item .item-poster.item-title-border{
+    background-image: url(../images/modules-poster09.png);
+}
+.module-item .item-poster.item-base-pie{
+    background-image: url(../images/modules-poster10.png);
 }
 .module-item:hover .item-poster{
     border: 1px solid #1c6dff;
@@ -444,22 +492,57 @@
     cursor pointer
     box-sizing border-box
     position relative
-    i.icon-delete{
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 9;
-        font-size: 27px;
+    .module-operate{
         display none
-        width 30px
-        height 30px
-        line-height 30px
-        text-align center
-        background: rgba(4,83,195,0.2);
-        border: 1px solid #0453c3;
+        position absolute
+        top -35px
+        right 0
+        z-index 9
+        width 100%
+        padding-bottom 20px
+        text-align right
+        i{
+            font-size 20px
+            width 20px
+            height 20px
+            line-height 20px
+            text-align center
+            margin-left 5px
+            background rgba(4,83,195,0.2)
+            border: 1px solid #0453c3;
+        }
     }
-    &:hover i.icon-delete{
+    &:hover .module-operate{
         display block
+    }
+    .module-border{
+        width 100%
+        height 100%
+        background none
+        border-style solid
+        border-image-width initial
+        borer-image-outset initial
+        border-image-repeat initial
+    }
+    .border-type0{
+        border-image-source:url(../images/border-type0.png)
+    }
+    .border-type1{
+        border-image-source:url(../images/border-type1.png)
+    }
+    .module-title-border{
+        width 100%
+        height 100%
+        border none
+        background-size contain
+        background-position center center
+        background-repeat no-repeat
+    }
+    .border-title-type0{
+        background-image url(../images/title-border-type0.png)
+    }
+    .border-title-type1{
+        background-image url(../images/title-border-type1.png)
     }
 }
 .react-draggable{

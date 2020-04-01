@@ -9,14 +9,90 @@ class SettingDataForm extends Component{
     onEditorChange = (newValue,event) => {
         // console.log("event",event)
         // console.log("onChange", newValue); // eslint-disable-line no-console
-        console.log(JSON.stringify(newValue))
-        const { id } = this.props.module
-        this.props.changeItemArr({
-            id,
-            path:["data","data"],
-            data:newValue
-        })
-    };
+        const type = this.props.module.type
+        if(type === "line"){
+            this.editLineData(newValue)
+        }else if(type === "bar"){
+            this.editLineData(newValue)
+        }else if(type === "pie"){
+            this.editPieData(newValue)
+        }
+        
+    }
+
+    editPieData = (newValue)=>{
+        try{
+            let jsonData = eval(newValue);
+            const { id } = this.props.module
+            
+            let curOptions = this.props.module.options
+            let legend = []
+            jsonData.forEach((item,index)=>{
+                legend.push(item.name)
+            })
+            curOptions.legend.data = legend
+            curOptions.series.data = jsonData
+            // console.log(curOptions)
+            this.props.changeItem({
+                id,
+                data:{
+                    data:{
+                        data:newValue
+                    }
+                }
+            })
+            this.props.changeItemArr({
+                id,
+                path:["options"],
+                data:curOptions
+            })
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    editLineData = (newValue)=>{
+        try{
+            let jsonData = eval(newValue);
+            const { id } = this.props.module
+            
+            let curOptions = this.props.module.options
+            let legend = []
+            let xAxisNames = []
+            
+            jsonData.forEach((item,index)=>{
+                legend.push(item.name)
+                xAxisNames = [];
+                let seriesData = []
+                item.data.forEach((item,index)=>{
+                    xAxisNames.push(item.name)
+                    seriesData.push(item.value)
+                })
+                curOptions.series[index].name = item.name
+                curOptions.series[index].data = seriesData
+            })
+            
+            curOptions.legend.data = legend
+            curOptions.xAxis.data = xAxisNames
+            this.props.changeItem({
+                id,
+                data:{
+                    data:{
+                        data:newValue
+                    }
+                }
+            })
+            this.props.changeItemArr({
+                id,
+                path:["options"],
+                data:curOptions
+            })
+        }catch(e){
+
+        }
+        
+    }
+
     moduleDataTypeChange = (value)=>{
         const { id } = this.props.module
         this.props.changeItem({
@@ -39,10 +115,6 @@ class SettingDataForm extends Component{
             }
         })
     }
-    editorDidMount = (editor,monaco) => {
-        // console.log(editor)
-        // console.log(monaco)
-    };
     render(){
         const { data } = this.props.module
         return (
@@ -92,7 +164,6 @@ class SettingDataForm extends Component{
                                 options={monacoEditorConfig}
                                 theme="vs-dark"
                                 onChange={this.onEditorChange}
-                                editorDidMount={this.editorDidMount}
                             />
                         </Col>
                     </Row>
